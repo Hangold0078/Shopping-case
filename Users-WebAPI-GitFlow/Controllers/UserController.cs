@@ -5,7 +5,7 @@ using Users_WebAPI_GitFlow.Repository;
 namespace Users_WebAPI_GitFlow.Controllers;
 
 [ApiController]
-[Route("[api/user]")]
+[Route("api/user")]
 public class UserController : ControllerBase
 {
    private IUserRepository _userRepository;
@@ -17,8 +17,10 @@ public class UserController : ControllerBase
 
    [HttpPost]
    [Route("RegisterUser")]
-   public User Add(User user)
+   public ActionResult<User> Add(User user) //Action result muliggør Http-respons
    {
-      return _userRepository.Add(user);
+      User newUser = _userRepository.Add(user);
+      return Ok(newUser);
+      
    }
 }
