@@ -1,6 +1,0 @@
-@Users_WebAPI_GitFlow_HostAddress = http://localhost:5103
-
-GET {{Users_WebAPI_GitFlow_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
