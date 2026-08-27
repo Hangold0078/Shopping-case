@@ -1,4 +1,4 @@
-namespace Users_WebAPI_GitFlow.Models;
+namespace Models;
 
 public class User
 {
