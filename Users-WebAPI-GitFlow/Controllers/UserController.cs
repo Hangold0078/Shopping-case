@@ -19,6 +19,7 @@ public class UserController : ControllerBase
    [Route("RegisterUser")]
    public ActionResult<User> Add(User user) //Action result muliggør Http-respons
    {
+      
       User newUser = _userRepository.Add(user);
       return Ok(newUser);
       
