@@ -28,7 +28,7 @@ public class UserController : ControllerBase
    [Route("login")]
    public ActionResult<User> login(User user)
    {
-      User foundUser = _userRepository.Find(user);
+      User foundUser = _userRepository.GetUserByEmail(user);
       
          if (foundUser == null)
          {
@@ -36,6 +36,28 @@ public class UserController : ControllerBase
          }
 
          return Ok(new {message = "Login successful", email = user.Email }); //kode 200
-      
    }
+
+   [HttpGet]
+   [Route("getuserbyid/{id}")]
+   public ActionResult<User> GetUserById(int id)
+   {
+      User user = _userRepository.GetUserById(id);
+
+      if (user == null)
+      {
+         return Unauthorized(new { message = "User not found" });
+      }
+
+      return Ok(user);
+   }
+
+   [HttpGet]
+   [Route("getallusers")]
+   public ActionResult<List<User>> GetAllUsers()
+   {
+      return Ok(_userRepository.GetAll());
+   }
+   
+   
 }
