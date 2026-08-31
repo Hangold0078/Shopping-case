@@ -12,9 +12,9 @@ public class Login
     
     public string Password { get; set; }
     
-    public Login(string email, string passwordHash)
+    public Login(string email, string password)
     {
         this.Email = email;
-        this.Password = passwordHash;
+        this.Password = password;
     }
 }
