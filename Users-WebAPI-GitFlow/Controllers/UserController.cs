@@ -32,16 +32,16 @@ public class UserController : ControllerBase
 
    [HttpPost]
    [Route("login")]
-   public bool login(User user)
+   public ActionResult<User> login(User user)
    {
       User foundUser = _userRepository.Find(user);
       
          if (foundUser == null)
          {
-            return false;
+            return Unauthorized( new {message ="user not found"}); //kode 401
          }
 
-         return true;
+         return Ok(new {message = "Login successful", email = user.Email }); //kode 200
       
    }
 }
