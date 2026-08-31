@@ -35,7 +35,7 @@ public class UserController : ControllerBase
             return Unauthorized( new {message ="user not found"}); //kode 401
          }
 
-         return Ok(new {message = "Login successful", username = user.Email }); //kode 200
+         return Ok(new {message = "Login successful", email = user.Email }); //kode 200
       
    }
 }
