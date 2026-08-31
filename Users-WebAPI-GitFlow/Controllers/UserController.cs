@@ -17,10 +17,10 @@ public class UserController : ControllerBase
 
    [HttpPost]
    [Route("register")]
-   public ActionResult<User> Add(User user) //Action result muliggør Http-respons
+   public ActionResult<User> Add(Login login) //Action result muliggør Http-respons
    {
       
-      User newUser = _userRepository.Add(user);
+      User newUser = _userRepository.Add(login);
       if (newUser == null)
       {
          return BadRequest("Email already exists");
@@ -41,7 +41,7 @@ public class UserController : ControllerBase
             return Unauthorized( new {message ="user not found"}); //kode 401
          }
 
-         return Ok(new {message = "Login successful", email = user.Email }); //kode 200
+         return Ok(new {message = "Login successful", email = login.Email }); //kode 200
    }
 
    [HttpGet]

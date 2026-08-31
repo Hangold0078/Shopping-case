@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Models;
 
 namespace Users_WebAPI_GitFlow.Repository;
@@ -37,16 +39,20 @@ public class UserRepository : IUserRepository
         return new User(email, hash, salt);
     }
     private int _nextId = 5;
-    public User Add(User user)
+    public User Add(Login login)
     {
-        bool exists = _users.Any(matchUser => matchUser.Email == user.Email);
+        bool exists = _users.Any(matchUser => matchUser.Email == login.Email);
         if (exists)
         {
             return null;
         }
-        user.Id = _nextId++;
-        _users.Add(user);
-        return user;
+        User newUser = CreateUser(login.Email, login.Password);
+
+        newUser.Id = _nextId++;
+
+        _users.Add(newUser);
+
+        return newUser;
     }
 
     public User GetByEmail(Login login)
