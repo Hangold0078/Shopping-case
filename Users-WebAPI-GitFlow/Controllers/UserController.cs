@@ -21,7 +21,12 @@ public class UserController : ControllerBase
    {
       
       User newUser = _userRepository.Add(user);
-      return Ok(newUser);
+      if (newUser == null)
+      {
+         return BadRequest("Email already exists");
+      }
+      
+      return Ok(new { message = "User registered", user = newUser });
 
    }
 

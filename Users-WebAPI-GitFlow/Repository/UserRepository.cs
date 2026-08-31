@@ -15,6 +15,11 @@ public class UserRepository : IUserRepository
 
     public User Add(User user)
     {
+        bool exists = _users.Any(matchUser => matchUser.Email == user.Email);
+        if (exists)
+        {
+            return null;
+        }
         _users.Add(user);
         return user;
     }
