@@ -10,13 +10,14 @@ public class User
     [EmailAddress]
     public string Email { get; set; }
     
-    [Required]
-    [MinLength(6)]
-    public string Password { get; set; }
+    public string PasswordHash { get; set; }
+    
+    public string PasswordSalt { get; set; }
 
-    public User(string email, string password)
+    public User(string email, string passwordHash, string passwordSalt)
     {
         this.Email = email;
-        this.Password = password;
+        this.PasswordHash = passwordHash;
+        this.PasswordSalt = passwordSalt;;
     }
 }

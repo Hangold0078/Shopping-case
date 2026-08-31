@@ -16,7 +16,7 @@ public class UserController : ControllerBase
    }
 
    [HttpPost]
-   [Route("RegisterUser")]
+   [Route("register")]
    public ActionResult<User> Add(User user) //Action result muliggør Http-respons
    {
       
@@ -32,16 +32,16 @@ public class UserController : ControllerBase
 
    [HttpPost]
    [Route("login")]
-   public ActionResult<User> login(User user)
+   public ActionResult<Login> login(Login login)
    {
-      User foundUser = _userRepository.Find(user);
+      User foundUser = _userRepository.Find(login);
       
          if (foundUser == null)
          {
             return Unauthorized( new {message ="user not found"}); //kode 401
          }
 
-         return Ok(new {message = "Login successful", email = user.Email }); //kode 200
+         return Ok(new {message = "Login successful", email = login.Email }); //kode 200
       
    }
 }
