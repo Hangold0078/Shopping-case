@@ -22,6 +22,21 @@ public class UserController : ControllerBase
       
       User newUser = _userRepository.Add(user);
       return Ok(newUser);
+
+   }
+
+   [HttpPost]
+   [Route("login")]
+   public bool login(User user)
+   {
+      User foundUser = _userRepository.Find(user);
+      
+         if (foundUser == null)
+         {
+            return false;
+         }
+
+         return true;
       
    }
 }
