@@ -34,7 +34,7 @@ public class UserController : ControllerBase
    [Route("login")]
    public ActionResult<User> login(User user)
    {
-      User foundUser = _userRepository.GetUserByEmail(user);
+      User foundUser = _userRepository.GetByEmail(user);
       
          if (foundUser == null)
          {
@@ -45,10 +45,10 @@ public class UserController : ControllerBase
    }
 
    [HttpGet]
-   [Route("getuserbyid/{id}")]
-   public ActionResult<User> GetUserById(int id)
+   [Route("getbyid/{id}")]
+   public ActionResult<User> GetById(int id)
    {
-      User user = _userRepository.GetUserById(id);
+      User user = _userRepository.GetById(id);
 
       if (user == null)
       {
@@ -59,8 +59,8 @@ public class UserController : ControllerBase
    }
 
    [HttpGet]
-   [Route("getallusers")]
-   public ActionResult<List<User>> GetAllUsers()
+   [Route("getall")]
+   public ActionResult<List<User>> GetAll()
    {
       return Ok(_userRepository.GetAll());
    }

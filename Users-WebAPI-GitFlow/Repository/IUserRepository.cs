@@ -5,7 +5,7 @@ namespace Users_WebAPI_GitFlow.Repository;
 public interface IUserRepository
 {
     public User Add(User user);
-    public User GetUserByEmail(User user);
-    public User GetUserById(int id);
+    public User GetByEmail(User user);
+    public User GetById(int id);
     public List<User> GetAll();
 }

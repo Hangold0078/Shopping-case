@@ -13,7 +13,7 @@ public class UserRepository : IUserRepository
         new User("maria@gmail.com", "test123") { Id = 4 }
     };
 
-    private int _nextId = 1;
+    private int _nextId = 5;
     public User Add(User user)
     {
         bool exists = _users.Any(matchUser => matchUser.Email == user.Email);
@@ -26,13 +26,13 @@ public class UserRepository : IUserRepository
         return user;
     }
 
-    public User GetUserByEmail(User user)
+    public User GetByEmail(User user)
     {
         User foundUser = _users.Find(matchUser => matchUser.Email == user.Email);
         return foundUser;
     }
 
-    public User GetUserById(int id)
+    public User GetById(int id)
     {
         User foundUser = _users.Find(matchId => matchId.Id == id);
         return foundUser;
