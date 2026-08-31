@@ -13,15 +13,28 @@ public class UserRepository : IUserRepository
         new User("maria@gmail.com", "test123") { Id = 4 }
     };
 
+    private int _nextId = 1;
     public User Add(User user)
     {
+        user.Id = _nextId++;
         _users.Add(user);
         return user;
     }
 
-    public User Find(User user)
+    public User GetUserByEmail(User user)
     {
         User foundUser = _users.Find(matchUser => matchUser.Email == user.Email);
         return foundUser;
+    }
+
+    public User GetUserById(int id)
+    {
+        User foundUser = _users.Find(matchId => matchId.Id == id);
+        return foundUser;
+    }
+
+    public List<User> GetAll()
+    {
+        return _users;
     }
 }
