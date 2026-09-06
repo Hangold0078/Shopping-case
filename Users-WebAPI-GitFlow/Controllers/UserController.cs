@@ -32,7 +32,7 @@ public class UserController : ControllerBase
 
    [HttpPost]
    [Route("login")]
-   public ActionResult<Login> login(Login login)
+   public ActionResult<Login> Login(Login login)
    {
       User foundUser = _userRepository.GetByEmail(login);
       
