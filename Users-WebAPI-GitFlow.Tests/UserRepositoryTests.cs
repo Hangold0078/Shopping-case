@@ -36,4 +36,23 @@ public class UserRepositoryTests
         //Assert
         Assert.IsInstanceOfType(result.Result, typeof(OkObjectResult));
     }
+    
+    [TestMethod]
+    public void ValidRegistration()
+    {
+        //Arrange
+        var login = new Login("Poul@mail.dk", "123");
+        var user = new User("Poul@mail.dk", "qwe", "salt");
+        
+        //Uanset hvad login-metoden kalder GetByEmail med, så lad som om vi fandt brugeren i databasen
+        _mockRepository
+            .Setup(r => r.Add(It.IsAny<Login>()))
+            .Returns(user);
+        
+        //Act
+        var result = _controller.Add(login);
+       
+        //Assert
+        Assert.IsInstanceOfType(result.Result, typeof(OkObjectResult));
+    }
 }
