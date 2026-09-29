@@ -24,7 +24,7 @@ public class UserRepositoryTests
     {
         //Arrange
         var login = new Login("Poul@mail.dk", "123"); //input, en bruger ville sende via login
-        var user = new User("Poul@mail.dk", "qwe", "salt"); //bruger, som repository'et skal returnere
+        var user = new User("Poul@mail.dk", "qwe", "salt"); //bruger, som repositoryet skal returnere
         
         //Uanset hvad login-metoden kalder GetByEmail med, så lad som om vi fandt brugeren i databasen
         _mockRepository.Setup(r => r.GetByEmail(It.IsAny<Login>()))
