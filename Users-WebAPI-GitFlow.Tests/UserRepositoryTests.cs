@@ -41,11 +41,10 @@ public class UserRepositoryTests
     public void LoginCorrectData()
     {
         //Arrange
-        var login = new Login("Poul@mail.dk", "123"); //input, en bruger ville sende via login
-        var user = new User("Poul@mail.dk", "qwe", "salt"); //bruger, som repositoryet skal returnere
+        var login = new Login("Poul@mail.dk", "123"); 
+        var user = new User("Poul@mail.dk", "qwe", "salt"); 
         
-        //Uanset hvad login-metoden kalder GetByEmail med, så lad som om vi fandt brugeren i databasen
-        _mockRepository.Setup(r => r.GetByLogin(It.IsAny<Login>()))
+        _mockRepository.Setup(r => r.GetByLogin(login))
             .Returns(user);
         
         //Act
