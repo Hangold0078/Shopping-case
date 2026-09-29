@@ -27,7 +27,25 @@ public class UserRepositoryTests
         var user = new User("Poul@mail.dk", "qwe", "salt"); //bruger, som repositoryet skal returnere
         
         //Uanset hvad login-metoden kalder GetByEmail med, så lad som om vi fandt brugeren i databasen
-        _mockRepository.Setup(r => r.GetByEmail(It.IsAny<Login>()))
+        _mockRepository.Setup(r => r.GetByLogin(It.IsAny<Login>()))
+            .Returns(user);
+        
+        //Act
+        var result = _controller.Login(login);
+       
+        //Assert
+        Assert.IsInstanceOfType(result.Result, typeof(OkObjectResult));
+    }
+    
+    [TestMethod]
+    public void LoginCorrectData()
+    {
+        //Arrange
+        var login = new Login("Poul@mail.dk", "123"); //input, en bruger ville sende via login
+        var user = new User("Poul@mail.dk", "qwe", "salt"); //bruger, som repositoryet skal returnere
+        
+        //Uanset hvad login-metoden kalder GetByEmail med, så lad som om vi fandt brugeren i databasen
+        _mockRepository.Setup(r => r.GetByLogin(It.IsAny<Login>()))
             .Returns(user);
         
         //Act

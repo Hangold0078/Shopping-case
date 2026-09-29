@@ -33,34 +33,34 @@ public class UserController : ControllerBase
 
    [HttpPost]
    [Route("login")]
-   public ActionResult<Login> Login(Login login)
+   public ActionResult<User?> Login(Login login)
    {
-      User foundUser = _userRepository.GetByEmail(login);
+      User? foundUser = _userRepository.GetByLogin(login);
       
          if (foundUser == null)
          {
-            return Unauthorized( new {message ="user not found"}); //kode 401
+            return NotFound( new {message ="user not found"}); //Kode 404
          }
 
          return Ok(new {message = "Login successful", email = login.Email }); //kode 200
    }
 
    [HttpGet]
-   [Route("getbyid/{id}")]
+   [Route("{id}")]
    public ActionResult<User> GetById(int id)
    {
       User user = _userRepository.GetById(id);
 
       if (user == null)
       {
-         return Unauthorized(new { message = "User not found" });
+         return NotFound(new { message = "User not found" });
       }
 
       return Ok(user);
    }
 
    [HttpGet]
-   [Route("getall")]
+   [Route("all")]
    public ActionResult<List<User>> GetAll()
    {
       return Ok(_userRepository.GetAll());

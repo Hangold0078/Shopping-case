@@ -14,7 +14,22 @@ public class UserRepository : IUserRepository
         CreateUser( "sara@gmail.com", "abcd"),
         CreateUser( "maria@gmail.com", "test123")
     };
+    private static string HashPassword(string password, string salt)
+    {
+        byte[] saltBytes = Convert.FromBase64String(salt);
 
+        string hash = Convert.ToBase64String(
+            KeyDerivation.Pbkdf2(
+                password: password,
+                salt: saltBytes,
+                prf: KeyDerivationPrf.HMACSHA256,
+                iterationCount: 100000,
+                numBytesRequested: 256 / 8
+            )
+        );
+
+        return hash;
+    }
     public static User CreateUser(string email, string password) //static fordi metode omhandler lokal klasse, og ikke tilhører objektet
     {
         byte[] saltBytes = new byte[128 / 8];
@@ -55,10 +70,21 @@ public class UserRepository : IUserRepository
         return newUser;
     }
 
-    public User GetByEmail(Login login)
+    public User? GetByLogin(Login login)
     {
-        User foundUser = _users.Find(matchUser => matchUser.Email == login.Email);
-        return foundUser;
+        User? foundUser = _users.Find(matchUser => matchUser.Email == login.Email);
+        if (foundUser == null)
+        {
+            return null;
+        }
+        string hash = HashPassword(login.Password, foundUser.PasswordSalt);
+
+        if (hash == foundUser.PasswordHash)
+        {
+            return foundUser;
+        }
+
+        return null;
     }
 
     public User GetById(int id)
