@@ -22,7 +22,7 @@ public class UserRepositoryTests
     [TestMethod]
     public void LoginValidCredentials()
     {
-        //Arrang
+        //Arrange
         var login = new Login("Poul@mail.dk", "123"); //input, en bruger ville sende via login
         var user = new User("Poul@mail.dk", "qwe", "salt"); //bruger, som repositoryet skal returnere
         
